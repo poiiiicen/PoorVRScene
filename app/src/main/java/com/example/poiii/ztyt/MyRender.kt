@@ -1,6 +1,7 @@
 package com.example.poiii.ztyt
 
 import android.opengl.GLSurfaceView
+import android.opengl.GLU
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -13,14 +14,22 @@ class MyRender(private val activity: MainActivity) : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(p0: GL10?, p1: EGLConfig?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
     }
 
-    override fun onSurfaceChanged(p0: GL10?, p1: Int, p2: Int) {
+    override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
+        gl!!.glViewport(0, 0, width, height)
+
+        val ratio = width.toFloat() / height.toFloat()
+        gl.glMatrixMode(GL10.GL_PROJECTION)
+        gl.glLoadIdentity()
+        gl.glFrustumf(-ratio, ratio, -1.0f, 1.0f, 3.0f, 7.0f)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onDrawFrame(p0: GL10?) {
+    override fun onDrawFrame(gl: GL10?) {
+        gl!!.glMatrixMode(GL10.GL_MODELVIEW)
+        gl.glLoadIdentity()
+        GLU.gluLookAt(gl, 0.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
