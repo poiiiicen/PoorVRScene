@@ -6,26 +6,26 @@ import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mGLSurfaceView: GLSurfaceView
+    private lateinit var leftCameraView: CameraView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mGLSurfaceView = findViewById(R.id.surface)
-        mGLSurfaceView.setEGLContextClientVersion(2)
-        mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0)
-        mGLSurfaceView.setRenderer(MyRender(this))
-        mGLSurfaceView.renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
+        leftCameraView = findViewById(R.id.surface)
+        leftCameraView.addObject(Triangle(this, floatArrayOf(0.5f, 0.5f, 0.0f, // top
+                -0.5f, -0.5f, 0.0f, // bottom left
+                0.5f, -0.5f, 0.0f  // bottom right
+        )))
     }
 
     override fun onPause() {
         super.onPause()
-        mGLSurfaceView.onPause()
+        leftCameraView.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mGLSurfaceView.onResume()
+        leftCameraView.onResume()
     }
 }

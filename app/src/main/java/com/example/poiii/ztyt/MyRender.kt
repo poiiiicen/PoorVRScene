@@ -23,7 +23,7 @@ class MyRender(private val activity: MainActivity) : GLSurfaceView.Renderer {
             -0.5f, -0.5f, 0.0f, // bottom left
             0.5f, -0.5f, 0.0f  // bottom right
     )
-    private val vertexCount = 12;
+    private val vertexCount = 12
 
     val color = floatArrayOf(1.0f, 1.0f, 1.0f, 1.0f)
 

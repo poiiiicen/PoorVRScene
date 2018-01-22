@@ -44,4 +44,13 @@ object Utils {
         }
         return shader
     }
+
+    @JvmStatic
+    fun loadIdentity(): FloatArray {
+        return floatArrayOf(
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f)
+    }
 }
