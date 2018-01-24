@@ -25,11 +25,15 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         inited = true
     }
 
-    override fun draw(mProgram: Int) {
+    override fun draw(mProgram: Int, camera: Camera, modelMatrix: FloatArray) {
         if (!inited) {
             initDraw()
         }
         GLES20.glUseProgram(mProgram)
+        val mPerspectiveMatrixHandle = GLES20.glGetUniformLocation(mProgram, "vPerspectiveMatrix")
+        GLES20.glUniformMatrix4fv(mPerspectiveMatrixHandle, 1, false, camera.getPerspectiveMatrix(), 0)
+        val mViewMatrixHandle = GLES20.glGetUniformLocation(mProgram, "vViewMatrix")
+        GLES20.glUniformMatrix4fv(mViewMatrixHandle, 1, false, camera.getViewMatrix(), 0)
         val mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition")
         GLES20.glEnableVertexAttribArray(mPositionHandle)
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer)
@@ -39,10 +43,10 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         GLES20.glDisableVertexAttribArray(mProgram)
     }
 
-    override fun drawChild(mProgram: Int) {
+    override fun drawChild(mProgram: Int, camera: Camera, modelMatrix: FloatArray) {
         for (component in children) {
-            component.draw(mProgram)
-            component.drawChild(mProgram)
+            component.draw(mProgram, camera, modelMatrix)
+            component.drawChild(mProgram, camera, modelMatrix)
         }
     }
 }

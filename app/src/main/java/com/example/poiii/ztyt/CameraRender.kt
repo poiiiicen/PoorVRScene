@@ -25,18 +25,21 @@ class CameraRender(activity: Context) : GLSurfaceView.Renderer {
     override fun onSurfaceChanged(p0: GL10?, width: Int, height: Int) {
         this.width = width
         this.height = height
+        val ratio = width.toFloat() / height.toFloat() / 2.0f
+        Scene.leftCamera.setPerspective(0.0f, ratio, 0.1f, 100.0f)
+        Scene.rightCamera.setPerspective(0.0f, ratio, 0.1f, 100.0f)
     }
 
     override fun onDrawFrame(p0: GL10?) {
         GLES20.glViewport(0, 0, width / 2, height)
         for (component in Scene.components) {
-            component.draw(Scene.lightingShader.mProgram)
-            component.drawChild(Scene.lightingShader.mProgram)
+            component.draw(Scene.lightingShader.mProgram, Scene.leftCamera, Utils.loadIdentity())
+            component.drawChild(Scene.lightingShader.mProgram, Scene.leftCamera, component.getModelMatrix())
         }
         GLES20.glViewport(width / 2, 0, width / 2, height)
         for (component in Scene.components) {
-            component.draw(Scene.lightingShader.mProgram)
-            component.drawChild(Scene.lightingShader.mProgram)
+            component.draw(Scene.lightingShader.mProgram, Scene.rightCamera, Utils.loadIdentity())
+            component.drawChild(Scene.lightingShader.mProgram, Scene.rightCamera, component.getModelMatrix())
         }
     }
 

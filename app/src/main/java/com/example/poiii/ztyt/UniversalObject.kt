@@ -17,11 +17,11 @@ open class UniversalObject(context: Context,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun draw(mProgram: Int) {
+    override fun draw(mProgram: Int, camera: Camera, modelMatrix: FloatArray) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun drawChild(mProgram: Int) {
+    override fun drawChild(mProgram: Int, camera: Camera, modelMatrix: FloatArray) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

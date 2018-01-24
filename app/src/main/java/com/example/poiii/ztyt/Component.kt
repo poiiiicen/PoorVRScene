@@ -15,6 +15,10 @@ abstract class Component(private val context: Context) {
 
     val children = ArrayList<Component>()
 
+    open fun getModelMatrix(): FloatArray {
+        return modelMatrix
+    }
+
     open fun setShader(id: Int) {
         shaderCode = Utils.loadShaderCode(context, id)
         inited = false
@@ -22,7 +26,7 @@ abstract class Component(private val context: Context) {
 
     abstract fun initDraw()
 
-    abstract fun draw(mProgram: Int)
+    abstract fun draw(mProgram: Int, camera: Camera, modelMatrix: FloatArray)
 
-    abstract fun drawChild(mProgram: Int)
+    abstract fun drawChild(mProgram: Int, camera: Camera, modelMatrix: FloatArray)
 }

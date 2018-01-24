@@ -8,8 +8,8 @@ import android.widget.RelativeLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var leftCameraView: GLSurfaceView
-    private lateinit var leftCameraRender: CameraRender
+    private lateinit var cameraView: GLSurfaceView
+    private lateinit var cameraRender: CameraRender
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,14 +17,14 @@ class MainActivity : AppCompatActivity() {
 
         Scene.lightingShader.setShader(this, R.raw.vertex, R.raw.fragment)
 
-        leftCameraRender = CameraRender(this)
+        cameraRender = CameraRender(this)
 
-        leftCameraView = findViewById(R.id.left_camera)
-        cameraInit(leftCameraView, leftCameraRender);
+        cameraView = findViewById(R.id.left_camera)
+        cameraInit(cameraView, cameraRender);
 
-        Scene.addObject(Triangle(this, floatArrayOf(0.5f, 0.5f, 0.0f, // top
-                -0.5f, -0.5f, 0.0f, // bottom left
-                0.5f, -0.5f, 0.0f  // bottom right
+        Scene.addObject(Triangle(this, floatArrayOf(5.0f, 5.0f, 0.0f, // top
+                -5.0f, -5.0f, 0.0f, // bottom left
+                5.0f, -5.0f, 0.0f  // bottom right
         )))
     }
 
@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        leftCameraView.onPause()
+        cameraView.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        leftCameraView.onResume()
+        cameraView.onResume()
     }
 }

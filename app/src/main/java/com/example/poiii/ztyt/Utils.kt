@@ -6,6 +6,9 @@ import java.io.InputStreamReader
 import android.opengl.GLES20
 import android.content.ContentValues.TAG
 import android.util.Log
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.nio.FloatBuffer
 
 
 /**
@@ -52,5 +55,15 @@ object Utils {
                 0.0f, 1.0f, 0.0f, 0.0f,
                 0.0f, 0.0f, 1.0f, 0.0f,
                 0.0f, 0.0f, 0.0f, 1.0f)
+    }
+
+    @JvmStatic
+    fun array2Buffer(array: FloatArray): FloatBuffer {
+        val bb = ByteBuffer.allocateDirect(array.size * 4)
+        bb.order(ByteOrder.nativeOrder())
+        val ret = bb.asFloatBuffer()
+        ret.put(array)
+        ret.position(0)
+        return ret
     }
 }
