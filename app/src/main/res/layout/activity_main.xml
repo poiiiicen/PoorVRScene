@@ -14,9 +14,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" /-->
-    <com.example.poiii.ztyt.CameraView
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/left_camera"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/right_camera"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <!--TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/-->
+
+    </LinearLayout>
+    <!--com.example.poiii.ztyt.CameraView
         android:id="@+id/surface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" /-->
 
 </android.support.constraint.ConstraintLayout>
