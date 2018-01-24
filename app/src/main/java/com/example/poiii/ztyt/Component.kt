@@ -1,10 +1,6 @@
 package com.example.poiii.ztyt
 
 import android.content.Context
-import android.opengl.GLES20
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.FloatBuffer
 
 /**
  * Created by poiii on 2018/1/22.
