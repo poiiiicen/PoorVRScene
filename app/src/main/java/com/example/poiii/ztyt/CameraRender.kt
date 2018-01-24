@@ -14,20 +14,12 @@ import javax.microedition.khronos.opengles.GL10
 class CameraRender(activity: Context) : GLSurfaceView.Renderer {
     private val vertexShaderCode = Utils.loadShaderCode(activity, R.raw.vertex)
     private val fragmentShaderCode = Utils.loadShaderCode(activity, R.raw.fragment)
-    private var mProgram = 0
-    private var vertexShader = 0
-    private var fragShader = 0
-
-    private val components = ArrayList<Component>()
 
     override fun onSurfaceCreated(p0: GL10?, p1: EGLConfig?) {
         GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f)
-        vertexShader = Utils.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode)
-        fragShader = Utils.loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode)
-        mProgram = GLES20.glCreateProgram()
-        GLES20.glAttachShader(mProgram, vertexShader)
-        GLES20.glAttachShader(mProgram, fragShader)
-        GLES20.glLinkProgram(mProgram)
+        if (!Scene.shaderInited) {
+            Scene.lightingShader.shaderInit()
+        }
     }
 
     override fun onSurfaceChanged(p0: GL10?, width: Int, height: Int) {
@@ -35,12 +27,10 @@ class CameraRender(activity: Context) : GLSurfaceView.Renderer {
     }
 
     override fun onDrawFrame(p0: GL10?) {
-        for (component in components) {
-            component.draw(mProgram)
+        for (component in Scene.components) {
+            component.draw(Scene.lightingShader.mProgram)
+            component.drawChild(Scene.lightingShader.mProgram)
         }
     }
 
-    fun addObject(component: Component) {
-        components.add(component)
-    }
 }

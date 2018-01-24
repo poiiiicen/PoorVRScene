@@ -17,6 +17,8 @@ abstract class Component(private val context: Context) {
 
     var inited = false
 
+    val children = ArrayList<Component>()
+
     open fun setShader(id: Int) {
         shaderCode = Utils.loadShaderCode(context, id)
         inited = false
@@ -25,4 +27,6 @@ abstract class Component(private val context: Context) {
     abstract fun initDraw()
 
     abstract fun draw(mProgram: Int)
+
+    abstract fun drawChild(mProgram: Int)
 }

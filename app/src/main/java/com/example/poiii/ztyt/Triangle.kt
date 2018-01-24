@@ -38,4 +38,11 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount)
         GLES20.glDisableVertexAttribArray(mProgram)
     }
+
+    override fun drawChild(mProgram: Int) {
+        for (component in children) {
+            component.draw(mProgram)
+            component.drawChild(mProgram)
+        }
+    }
 }

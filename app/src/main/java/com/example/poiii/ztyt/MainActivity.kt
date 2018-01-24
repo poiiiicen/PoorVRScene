@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Scene.lightingShader.setShader(this, R.raw.vertex, R.raw.fragment)
+
         leftCameraRender = CameraRender(this)
         rightCameraRender = CameraRender(this)
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         cameraInit(rightCameraView, rightCameraRender)
 
 
-        leftCameraRender.addObject(Triangle(this, floatArrayOf(0.5f, 0.5f, 0.0f, // top
+        Scene.addObject(Triangle(this, floatArrayOf(0.5f, 0.5f, 0.0f, // top
                 -0.5f, -0.5f, 0.0f, // bottom left
                 0.5f, -0.5f, 0.0f  // bottom right
         )))
