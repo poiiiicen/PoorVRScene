@@ -34,12 +34,12 @@ class CameraRender(activity: Context) : GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width / 2, height)
         for (component in Scene.components) {
             component.draw(Scene.lightingShader.mProgram, Scene.leftCamera, Utils.loadIdentity())
-            component.drawChild(Scene.lightingShader.mProgram, Scene.leftCamera, component.getModelMatrix())
+            component.drawChild(Scene.lightingShader.mProgram, Scene.leftCamera, component.getModelMat())
         }
         GLES20.glViewport(width / 2, 0, width / 2, height)
         for (component in Scene.components) {
             component.draw(Scene.lightingShader.mProgram, Scene.rightCamera, Utils.loadIdentity())
-            component.drawChild(Scene.lightingShader.mProgram, Scene.rightCamera, component.getModelMatrix())
+            component.drawChild(Scene.lightingShader.mProgram, Scene.rightCamera, component.getModelMat())
         }
     }
 

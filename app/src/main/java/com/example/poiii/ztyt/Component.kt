@@ -7,15 +7,15 @@ import android.content.Context
  */
 abstract class Component(private val context: Context) {
     protected var position = floatArrayOf(0.0f, 0.0f, 0.0f)
-    private val modelMatrix = Utils.loadIdentity()
+    protected val modelMatrix = Utils.loadIdentity()
     private var shaderCode = ""
     private var shader = 0
 
-    var inited = false
+    protected var inited = false
 
-    val children = ArrayList<Component>()
+    protected val children = ArrayList<Component>()
 
-    open fun getModelMatrix(): FloatArray {
+    open fun getModelMat(): FloatArray {
         return modelMatrix
     }
 

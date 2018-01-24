@@ -2,6 +2,7 @@ package com.example.poiii.ztyt
 
 import android.content.Context
 import android.opengl.GLES20
+import android.opengl.Matrix
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -29,11 +30,17 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         if (!inited) {
             initDraw()
         }
+
+        val modelMat = Utils.loadIdentity()
+        Matrix.multiplyMM(modelMat, 0, modelMatrix, 0, this.modelMatrix, 0)
+
         GLES20.glUseProgram(mProgram)
-        val mPerspectiveMatrixHandle = GLES20.glGetUniformLocation(mProgram, "vPerspectiveMatrix")
+        val mPerspectiveMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uPerspectiveMatrix")
         GLES20.glUniformMatrix4fv(mPerspectiveMatrixHandle, 1, false, camera.getPerspectiveMatrix(), 0)
-        val mViewMatrixHandle = GLES20.glGetUniformLocation(mProgram, "vViewMatrix")
+        val mViewMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uViewMatrix")
         GLES20.glUniformMatrix4fv(mViewMatrixHandle, 1, false, camera.getViewMatrix(), 0)
+        val mModelMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uModelMatrix")
+        GLES20.glUniformMatrix4fv(mModelMatrixHandle, 1, false, modelMat, 0)
         val mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition")
         GLES20.glEnableVertexAttribArray(mPositionHandle)
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer)
