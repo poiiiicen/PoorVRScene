@@ -31,7 +31,7 @@ open class UniversalObject(context: Context,
     private lateinit var indexBuffer: IntBuffer
 
     override fun initDraw() {
-        /*
+
         if (textureImage != null) {
             GLES20.glGenTextures(1, texture, 0)
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
@@ -40,7 +40,7 @@ open class UniversalObject(context: Context,
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, textureImage, 0)
             //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0)
         }
-        */
+
         vertexBuffer = Utils.array2Buffer(vertices)
         normalBuffer = Utils.array2Buffer(normals)
         texCoordBuffer = Utils.array2Buffer(textureCoords)
@@ -84,11 +84,13 @@ open class UniversalObject(context: Context,
         GLES20.glUniform1f(mMaterialShininess, material.shininess)
 
         if (textureImage != null) {
+            /*
             GLES20.glGenTextures(1, texture, 0)
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, textureImage, 0)
+            */
 
             //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
             val texDiffuseMap = GLES20.glGetUniformLocation(mProgram, "uMaterial.diffuseMap")
