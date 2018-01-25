@@ -45,7 +45,7 @@ void main() {
     vec3 result = vec3(0.0, 0.0, 0.0);
     for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
         if (uPointLights[i].valid > 0.5) {
-            result += CalcPointLight(uPointLights[i], cameraDir);
+            result += calcPointLight(uPointLights[i], cameraDir);
         }
     }
 
@@ -58,7 +58,7 @@ vec3 calcPointLight(PointLight light, vec3 cameraDir) {
 
     vec3 lightDir = normalize(light.position - vFragPos);
     float diffuseCoeff = clamp(dot(vFragNormal, lightDir), 0.0, 1.0);
-    vec3 diffuse = diffueCoeff * materialDiffuse * light.color;
+    vec3 diffuse = diffuseCoeff * materialDiffuse * light.color;
 
     vec3 reflectDir = reflect(-lightDir, vFragNormal);
     float specularCoeff = pow(clamp(dot(cameraDir, reflectDir), 0.0, 1.0), uMaterial.shininess);

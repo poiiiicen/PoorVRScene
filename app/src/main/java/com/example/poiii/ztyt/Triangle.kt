@@ -15,14 +15,15 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
     private val vertexStride = COORDS_PER_VERTEX * 4
     private val vertexCount = vertices.size / COORDS_PER_VERTEX
 
+    private var material = Material()
+
     private lateinit var vertexBuffer: FloatBuffer
 
+    private lateinit var normalBuffer: FloatBuffer
+
     override fun initDraw() {
-        val bb = ByteBuffer.allocateDirect(vertices.size * 4)
-        bb.order(ByteOrder.nativeOrder())
-        vertexBuffer = bb.asFloatBuffer()
-        vertexBuffer.put(vertices)
-        vertexBuffer.position(0)
+        vertexBuffer = Utils.array2Buffer(vertices)
+        normalBuffer = Utils.array2Buffer(floatArrayOf(0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f))
         inited = true
     }
 
@@ -33,6 +34,12 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
 
         val modelMat = Utils.loadIdentity()
         Matrix.multiplyMM(modelMat, 0, modelMatrix, 0, this.modelMatrix, 0)
+        val modelNormalMat = Utils.loadIdentity()
+        Matrix.invertM(modelNormalMat, 0, modelMat, 0)
+        Matrix.transposeM(modelNormalMat, 0, modelNormalMat, 0)
+
+        Scene.lightingShader.setCamera(camera)
+        Scene.lightingShader.setLight(Scene.light)
 
         GLES20.glUseProgram(mProgram)
         val mPerspectiveMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uPerspectiveMatrix")
@@ -41,13 +48,31 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         GLES20.glUniformMatrix4fv(mViewMatrixHandle, 1, false, camera.getViewMatrix(), 0)
         val mModelMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uModelMatrix")
         GLES20.glUniformMatrix4fv(mModelMatrixHandle, 1, false, modelMat, 0)
+
+        val mModelNormalMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uModelNormalMatrix")
+        GLES20.glUniformMatrix4fv(mModelNormalMatrixHandle, 1, false, modelNormalMat, 0)
+
+        val mMaterialAmbient = GLES20.glGetUniformLocation(mProgram, "uMaterial.ambient")
+        GLES20.glUniform3fv(mMaterialAmbient, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        val mMaterialDiffuse = GLES20.glGetUniformLocation(mProgram, "uMaterial.diffuse")
+        GLES20.glUniform3fv(mMaterialDiffuse, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        val mMaterialSpecular = GLES20.glGetUniformLocation(mProgram, "uMaterial.specular")
+        GLES20.glUniform3fv(mMaterialSpecular, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        val mMaterialShininess = GLES20.glGetUniformLocation(mProgram, "uMaterial.shininess")
+        GLES20.glUniform1f(mMaterialShininess, 50.0f)
+
+        val mTextureMap = GLES20.glGetUniformLocation(mProgram, "uMaterial.useDiffuseMap")
+        GLES20.glUniform1f(mTextureMap, 0.0f)
+
         val mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition")
         GLES20.glEnableVertexAttribArray(mPositionHandle)
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer)
-        val mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor")
-        GLES20.glUniform4fv(mColorHandle, 1, Config.red, 0)
+        val mNormalHandle = GLES20.glGetAttribLocation(mProgram, "vNormal")
+        GLES20.glEnableVertexAttribArray(mNormalHandle)
+        GLES20.glVertexAttribPointer(mNormalHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, normalBuffer)
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount)
-        GLES20.glDisableVertexAttribArray(mProgram)
+        GLES20.glDisableVertexAttribArray(mPositionHandle)
+        GLES20.glDisableVertexAttribArray(mNormalHandle)
     }
 
     override fun drawChild(mProgram: Int, camera: Camera, modelMatrix: FloatArray) {

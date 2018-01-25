@@ -8,4 +8,6 @@ object Config {
     val green = floatArrayOf(0.0f, 1.0f, 0.0f, 1.0f)
     val blue = floatArrayOf(0.0f, 0.0f, 1.0f, 1.0f)
     val gray = floatArrayOf(0.5f, 0.5f, 0.5f, 1.0f)
+
+    const val NUM_POINT_LIGHT = 4
 }
