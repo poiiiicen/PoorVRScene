@@ -2,6 +2,7 @@ package com.example.poiii.ztyt
 
 import android.content.Context
 import android.opengl.Matrix
+import android.util.Log
 
 /**
  * Created by poi on 1/25/18.
@@ -70,9 +71,9 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
                     readMTLFile(mtlContent)
                 }
                 "v" -> {
-                    vertices.add(sp.getWord()!!.toFloat())
-                    vertices.add(sp.getWord()!!.toFloat())
-                    vertices.add(sp.getWord()!!.toFloat())
+                    vertices.add(sp.getWord()!!.toFloat() * scale)
+                    vertices.add(sp.getWord()!!.toFloat() * scale)
+                    vertices.add(sp.getWord()!!.toFloat() * scale)
                 }
                 "vn" -> {
                     normals.add(sp.getWord()!!.toFloat())
@@ -115,7 +116,7 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
             val subWord = word.split('/')
 
             if (subWord.isNotEmpty()) {
-                val vi = if (subWord[0].toInt() < 0) vertices.size + subWord[0].toInt() else subWord[0].toInt() - 1
+                val vi = if (subWord[0].toInt() < 0) vertices.size / 2 + subWord[0].toInt() else subWord[0].toInt() - 1
                 face.vIndices.add(vi)
                 currentMaterialPart?.positions?.add(vertices[vi * 3])
                 currentMaterialPart?.positions?.add(vertices[vi * 3 + 1])
@@ -124,16 +125,20 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
                 currentMaterialPart?.let { it.count++ }
             }
             if (subWord.size > 1 && subWord[1] != "") {
-                val ti = if (subWord[1].toInt() < 0) textureVt.size + subWord[1].toInt() else subWord[1].toInt() - 1
+                val ti = if (subWord[1].toInt() < 0) textureVt.size / 2 + subWord[1].toInt() else subWord[1].toInt() - 1
                 face.tIndices.add(ti)
                 currentMaterialPart?.vt?.add(textureVt[ti * 2])
                 currentMaterialPart?.vt?.add(textureVt[ti * 2 + 1])
             } else {
-                currentMaterialPart?.vt?.add(defaultVT[i * 2])
-                currentMaterialPart?.vt?.add(defaultVT[i * 2 + 1])
+                if (i > 3) {
+                    Log.e("too large", i.toString())
+                } else {
+                    currentMaterialPart?.vt?.add(defaultVT[i * 2])
+                    currentMaterialPart?.vt?.add(defaultVT[i * 2 + 1])
+                }
             }
             if (subWord.size > 2) {
-                val ni = if (subWord[2].toInt() < 0) normals.size + subWord[2].toInt() else subWord[2].toInt() - 1
+                val ni = if (subWord[2].toInt() < 0) normals.size / 2 + subWord[2].toInt() else subWord[2].toInt() - 1
                 face.nIndices.add(ni)
                 currentMaterialPart?.normals?.add(normals[ni * 3])
                 currentMaterialPart?.normals?.add(normals[ni * 3 + 1])

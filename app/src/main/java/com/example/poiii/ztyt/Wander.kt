@@ -13,7 +13,7 @@ class Wander : TimerTask() {
 
     override fun run() {
         counter++
-        if (counter < 50) {
+        if (counter < 500) {
             setCameraMove(Scene.leftCamera, floatArrayOf(0.0f, 0.0f, 0.0f),
                     angular, 0.0f, Scene.xAxis, Scene.yAxis)
             setCameraMove(Scene.rightCamera, floatArrayOf(0.0f, 0.0f, 0.0f),

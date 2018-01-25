@@ -5,7 +5,7 @@ import android.content.Context
 /**
  * Created by poiii on 2018/1/22.
  */
-abstract class Component(private val context: Context) {
+abstract class Component(protected val context: Context) {
     protected var position = floatArrayOf(0.0f, 0.0f, 0.0f)
     protected val modelMatrix = Utils.loadIdentity()
     private var shaderCode = ""

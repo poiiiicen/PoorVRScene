@@ -113,7 +113,7 @@ object Utils {
     fun calcNormal(p0: FloatArray, p1: FloatArray, p2: FloatArray): FloatArray {
         val v0 = floatArrayOf(0.0f, 0.0f, 0.0f)
         val v1 = floatArrayOf(0.0f, 0.0f, 0.0f)
-        for (i in 0..3) {
+        for (i in 0 until 3) {
             v0[i] = p0[i] - p1[i]
             v1[i] = p2[i] - p1[i]
         }

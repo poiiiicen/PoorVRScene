@@ -1,11 +1,14 @@
 package com.example.poiii.ztyt
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.opengl.GLES20
+import android.opengl.GLUtils
 import android.opengl.Matrix
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
+import javax.microedition.khronos.opengles.GL
 
 /**
  * Created by poiii on 2018/1/22.
@@ -85,4 +88,22 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
             component.drawChild(mProgram, camera, modelMatrix)
         }
     }
+
+    /*
+    fun createTexture(): Int {
+        val texture = intArrayOf(0)
+        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.down)
+        if (bitmap != null && !bitmap.isRecycled) {
+            GLES20.glGenTextures(1, texture, 0)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
+            GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
+            return texture[0]
+        }
+        return 0
+    }
+    */
 }
