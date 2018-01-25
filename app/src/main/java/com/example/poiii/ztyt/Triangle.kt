@@ -15,7 +15,11 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
     private val vertexStride = COORDS_PER_VERTEX * 4
     private val vertexCount = vertices.size / COORDS_PER_VERTEX
 
-    private var material = Material()
+    private var material = Material(
+            floatArrayOf(0.5f, 0.5f, 0.5f),
+            floatArrayOf(0.5f, 0.5f, 0.5f),
+            floatArrayOf(0.5f, 0.5f, 0.5f),
+            50.0f)
 
     private lateinit var vertexBuffer: FloatBuffer
 
@@ -53,13 +57,13 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
         GLES20.glUniformMatrix4fv(mModelNormalMatrixHandle, 1, false, modelNormalMat, 0)
 
         val mMaterialAmbient = GLES20.glGetUniformLocation(mProgram, "uMaterial.ambient")
-        GLES20.glUniform3fv(mMaterialAmbient, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        GLES20.glUniform3fv(mMaterialAmbient, 1, material.ambientColor, 0)
         val mMaterialDiffuse = GLES20.glGetUniformLocation(mProgram, "uMaterial.diffuse")
-        GLES20.glUniform3fv(mMaterialDiffuse, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        GLES20.glUniform3fv(mMaterialDiffuse, 1, material.diffuseColor, 0)
         val mMaterialSpecular = GLES20.glGetUniformLocation(mProgram, "uMaterial.specular")
-        GLES20.glUniform3fv(mMaterialSpecular, 1, floatArrayOf(0.5f, 0.5f, 0.5f), 0)
+        GLES20.glUniform3fv(mMaterialSpecular, 1, material.specularColor, 0)
         val mMaterialShininess = GLES20.glGetUniformLocation(mProgram, "uMaterial.shininess")
-        GLES20.glUniform1f(mMaterialShininess, 50.0f)
+        GLES20.glUniform1f(mMaterialShininess, material.shininess)
 
         val mTextureMap = GLES20.glGetUniformLocation(mProgram, "uMaterial.useDiffuseMap")
         GLES20.glUniform1f(mTextureMap, 0.0f)
