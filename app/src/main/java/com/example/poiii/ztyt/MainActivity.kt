@@ -29,11 +29,17 @@ class MainActivity : AppCompatActivity() {
         cameraView = findViewById(R.id.left_camera)
         cameraInit(cameraView, cameraRender);
 
+        /*
         Scene.addObject(Triangle(this, floatArrayOf(5.0f, 5.0f, 0.0f, // top
                 -5.0f, -5.0f, 0.0f, // bottom left
                 5.0f, -5.0f, 0.0f  // bottom right
         )))
+        */
 
+        val objcetLoader = ObjcetLoader(this, R.raw.tv_obj, 10.0f)//resources.getIdentifier("com.example.poiiii.raw."), 2.0f)
+        objcetLoader.getObject().forEach({
+            Scene.addObject(it)
+        })
         Timer().scheduleAtFixedRate(task, interval.toLong(), interval.toLong())
     }
 
