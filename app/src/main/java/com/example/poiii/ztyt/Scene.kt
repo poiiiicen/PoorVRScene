@@ -7,6 +7,8 @@ object Scene {
     val components = ArrayList<Component>()
     val lightingShader = LightingShader()
     var shaderInited = false
+    var xAxis = floatArrayOf(0.0f, 1.0f, 0.0f, 0.0f)
+    var yAxis = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f)
 
     val light = PointLight(floatArrayOf(0.0f, 0.0f, 2.0f), Config.gray, 0.2f, true)
 

@@ -7,8 +7,8 @@ import java.nio.FloatBuffer
  * Created by poi on 1/25/18.
  */
 class Camera(private var pos: FloatArray,
-             look: FloatArray,
-             up: FloatArray) {
+             private var look: FloatArray,
+             private var up: FloatArray) {
     /*
     private var fieldOfView = 0.0f
     private var aspect = 0.0f
@@ -19,9 +19,9 @@ class Camera(private var pos: FloatArray,
     */
 
     private var perspectiveMatrix = Utils.loadIdentity()
-    private lateinit var perspectiveMatrixBuffer: FloatBuffer
+    private var perspectiveMatrixBuffer: FloatBuffer
     private var viewMatrix = Utils.loadIdentity()
-    private lateinit var viewMatrixBuffer: FloatBuffer
+    private var viewMatrixBuffer: FloatBuffer
 
     init {
         Matrix.setLookAtM(viewMatrix, 0, pos[0], pos[1], pos[2], look[0], look[1], look[2], up[0], up[1], up[2])
@@ -58,10 +58,8 @@ class Camera(private var pos: FloatArray,
     }
 
     fun lookAt(look: FloatArray, up: FloatArray) {
-        /*
         this.look = look
         this.up = up
-        */
         Matrix.setLookAtM(viewMatrix, 0, pos[0], pos[1], pos[2], look[0], look[1], look[2], up[0], up[1], up[2])
         viewMatrixBuffer = Utils.array2Buffer(viewMatrix)
     }
@@ -72,5 +70,13 @@ class Camera(private var pos: FloatArray,
 
     fun getViewMatrixBuffer(): FloatBuffer {
         return viewMatrixBuffer
+    }
+
+    fun getLook(): FloatArray {
+        return look
+    }
+
+    fun getUp(): FloatArray {
+        return up
     }
 }

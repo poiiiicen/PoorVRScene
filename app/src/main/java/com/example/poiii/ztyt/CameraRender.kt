@@ -31,6 +31,7 @@ class CameraRender(activity: Context) : GLSurfaceView.Renderer {
     }
 
     override fun onDrawFrame(p0: GL10?) {
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         GLES20.glViewport(0, 0, width / 2, height)
         for (component in Scene.components) {
             component.draw(Scene.lightingShader.mProgram, Scene.leftCamera, Utils.loadIdentity())
