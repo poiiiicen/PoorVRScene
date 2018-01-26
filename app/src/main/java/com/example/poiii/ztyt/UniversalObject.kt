@@ -84,6 +84,7 @@ open class UniversalObject(context: Context,
         GLES20.glUniform1f(mMaterialShininess, material.shininess)
 
         if (textureImage != null) {
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
             /*
             GLES20.glGenTextures(1, texture, 0)
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])

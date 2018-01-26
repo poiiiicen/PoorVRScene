@@ -38,14 +38,7 @@ class Camera(private var pos: FloatArray,
     }
 
     fun setPerspective(fieldOfView: Float, aspect: Float, near: Float, far: Float) {
-        /*
-        this.fieldOfView = fieldOfView
-        this.aspect = aspect
-        this.near = near
-        this.far = far
-        */
-        //perspectiveMatrix = Utils.loadIdentity()
-        Matrix.frustumM(perspectiveMatrix, 0, -aspect, aspect, -1.0f, 1.0f, near, far)
+        Matrix.perspectiveM(perspectiveMatrix, 0, fieldOfView, aspect, near, far)
         perspectiveMatrixBuffer = Utils.array2Buffer(perspectiveMatrix)
     }
 
