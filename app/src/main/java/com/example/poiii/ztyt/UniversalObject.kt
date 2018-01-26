@@ -21,7 +21,6 @@ open class UniversalObject(context: Context,
 
     private val COORDS_PER_VERTEX = 3
     private val vertexStride = COORDS_PER_VERTEX * 4
-    private val vertexCount = vertices.size / COORDS_PER_VERTEX
 
     private val texture = intArrayOf(0)
 
@@ -39,7 +38,6 @@ open class UniversalObject(context: Context,
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, textureImage, 0)
             textureImage.recycle()
-            //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0)
         }
 
         vertexBuffer = Utils.array2Buffer(vertices)
@@ -86,15 +84,6 @@ open class UniversalObject(context: Context,
 
         if (textureImage != null) {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
-            /*
-            GLES20.glGenTextures(1, texture, 0)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
-            GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, textureImage, 0)
-            */
-
-            //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
             val texDiffuseMap = GLES20.glGetUniformLocation(mProgram, "uMaterial.diffuseMap")
             GLES20.glUniform1i(texDiffuseMap, 0)
             val mTextureMap = GLES20.glGetUniformLocation(mProgram, "uMaterial.useDiffuseMap")
@@ -113,7 +102,6 @@ open class UniversalObject(context: Context,
         val mTexCoordsHandle = GLES20.glGetAttribLocation(mProgram, "vTexCoord")
         GLES20.glEnableVertexAttribArray(mTexCoordsHandle)
         GLES20.glVertexAttribPointer(mTexCoordsHandle, 2, GLES20.GL_FLOAT, false, 2 * 4, texCoordBuffer)
-        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount)
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indexBuffer)
         GLES20.glDisableVertexAttribArray(mPositionHandle)
         GLES20.glDisableVertexAttribArray(mNormalHandle)

@@ -8,12 +8,7 @@ import android.util.Log
  * Created by poi on 1/25/18.
  */
 class ObjcetLoader(private val context: Context, private val fileId: Int, private val scale: Float) {
-    /*
-    fun getObject(context: Context, fileId: Int, scala: Float): UniversalObject {
-        val content = Utils.loadObj(context, fileId)
 
-    }
-    */
     private val content = Utils.loadContent(context, fileId)
     private val vertices = ArrayList<Float>()
     private val normals = ArrayList<Float>()
@@ -21,7 +16,6 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
     private var useMaterial: NamedMaterial? = null
     private val materialParts = ArrayList<MaterialPart>()
     private var currentMaterialPart: MaterialPart? = null
-    private var faces = ArrayList<Face>()
     private var textureVt = ArrayList<Float>()
 
     private val defaultVT = floatArrayOf(
@@ -95,8 +89,7 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
                         mtlUsed = true
                         currentMaterialPart = MaterialPart()
                     }
-                    val face = parseFace(sp, currentMaterialName, vertices, textureVt, normals)
-                    //faces.add(face)
+                    parseFace(sp, currentMaterialName, vertices, textureVt, normals)
                 }
                 "vt" -> {
                     textureVt.add(sp.getWord()!!.toFloat() * scale)

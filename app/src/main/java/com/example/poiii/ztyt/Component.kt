@@ -7,10 +7,7 @@ import android.opengl.Matrix
  * Created by poiii on 2018/1/22.
  */
 abstract class Component(protected val context: Context) {
-    protected var position = floatArrayOf(0.0f, 0.0f, 0.0f)
     protected val modelMatrix = Utils.loadIdentity()
-    private var shaderCode = ""
-    private var shader = 0
 
     protected var inited = false
 
@@ -18,11 +15,6 @@ abstract class Component(protected val context: Context) {
 
     open fun getModelMat(): FloatArray {
         return modelMatrix
-    }
-
-    open fun setShader(id: Int) {
-        shaderCode = Utils.loadShaderCode(context, id)
-        inited = false
     }
 
     abstract fun initDraw()

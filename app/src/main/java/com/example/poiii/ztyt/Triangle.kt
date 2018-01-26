@@ -88,22 +88,4 @@ open class Triangle(context: Context, private val vertices: FloatArray) : Compon
             component.drawChild(mProgram, camera, modelMatrix)
         }
     }
-
-    /*
-    fun createTexture(): Int {
-        val texture = intArrayOf(0)
-        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.down)
-        if (bitmap != null && !bitmap.isRecycled) {
-            GLES20.glGenTextures(1, texture, 0)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0])
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
-            GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
-            return texture[0]
-        }
-        return 0
-    }
-    */
 }
