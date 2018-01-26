@@ -7,6 +7,7 @@ import android.opengl.GLES20
 import android.content.ContentValues.TAG
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.Matrix
 import android.util.Log
 import java.io.InputStream
 import java.nio.ByteBuffer
@@ -54,11 +55,13 @@ object Utils {
 
     @JvmStatic
     fun loadIdentity(): FloatArray {
-        return floatArrayOf(
+        val matrix = floatArrayOf(
                 1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,
                 0.0f, 0.0f, 1.0f, 0.0f,
                 0.0f, 0.0f, 0.0f, 1.0f)
+        Matrix.setIdentityM(matrix, 0)
+        return matrix
     }
 
     @JvmStatic

@@ -26,8 +26,8 @@ class CameraRender(activity: Context) : GLSurfaceView.Renderer {
         this.width = width
         this.height = height
         val ratio = width.toFloat() / height.toFloat() / 2.0f
-        Scene.leftCamera.setPerspective(45.0f, ratio, 0.1f, 10.0f)
-        Scene.rightCamera.setPerspective(45.0f, ratio, 0.1f, 10.0f)
+        Scene.leftCamera.setPerspective(45.0f, ratio, 0.1f, 100.0f)
+        Scene.rightCamera.setPerspective(45.0f, ratio, 0.1f, 100.0f)
     }
 
     override fun onDrawFrame(p0: GL10?) {

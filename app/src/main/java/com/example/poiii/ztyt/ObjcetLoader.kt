@@ -96,7 +96,7 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
                         currentMaterialPart = MaterialPart()
                     }
                     val face = parseFace(sp, currentMaterialName, vertices, textureVt, normals)
-                    faces.add(face)
+                    //faces.add(face)
                 }
                 "vt" -> {
                     textureVt.add(sp.getWord()!!.toFloat() * scale)
@@ -110,6 +110,7 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
     private fun parseFace(sp: StringParser, materialName: String, vertices: ArrayList<Float>, textureVt: ArrayList<Float>, normals: ArrayList<Float>): Face {
         val face = Face(materialName)
         var i = 0
+        var t = 0
         while (true) {
             val word = sp.getWord()
             if (word == null || word.replace(Regex("^\\s+|\\s+$/g"), "") == "") break
@@ -132,6 +133,10 @@ class ObjcetLoader(private val context: Context, private val fileId: Int, privat
             } else {
                 if (i > 3) {
                     Log.e("too large", i.toString())
+                    currentMaterialPart?.vt?.add(defaultVT[(t % 4) * 2])
+                    currentMaterialPart?.vt?.add(defaultVT[(t % 4) * 2 + 1])
+                    t++
+                    Log.e("too large t", t.toString())
                 } else {
                     currentMaterialPart?.vt?.add(defaultVT[i * 2])
                     currentMaterialPart?.vt?.add(defaultVT[i * 2 + 1])

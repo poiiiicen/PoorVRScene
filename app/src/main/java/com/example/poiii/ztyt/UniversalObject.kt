@@ -38,6 +38,7 @@ open class UniversalObject(context: Context,
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, textureImage, 0)
+            textureImage.recycle()
             //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0)
         }
 

@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraView: GLSurfaceView
     private lateinit var cameraRender: CameraRender
 
-    private val interval = 100
+    private val interval = 42
     private val task = Wander()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,17 +42,22 @@ class MainActivity : AppCompatActivity() {
 
 
         addObj(R.raw.cube_obj, 6.0f, true, floatArrayOf(0.0f, -2.5f, 0.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.table_obj, 3.2f, true, floatArrayOf(-0.85f, -8.5f, -7.5f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.chair_obj, 4.4f, true, floatArrayOf(-2.2f, -8.5f, -9.7f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.door_obj, 0.035f, true, floatArrayOf(1.0f, -8.47f, 12.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.doorframe_obj, 0.035f, true, floatArrayOf(1.0f, -8.47f, 12.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
         addObj(R.raw.poubelleinox_obj, 0.024f, true, floatArrayOf(3.7f, -7.0f, -8.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.tvcenter_obj, 0.05f, true, floatArrayOf(-5.0f, -4.8f, -2.0f), true, (Math.PI * 0.5f).toFloat(), floatArrayOf(0.0f, 1.0f, 0.0f))
-        addObj(R.raw.shelf_obj, 4.0f, true, floatArrayOf(5.0f, -8.5f, 5.0f), true, (Math.PI * 0.5f).toFloat(), floatArrayOf(0.0f, 1.0f, 0.0f))
-        addObj(R.raw.tv_obj, 0.05f, true, floatArrayOf(6.0f, -2.0f, 6.0f), true, (-Math.PI * 0.5f).toFloat(), floatArrayOf(0.0f, 1.0f, 0.0f))
-        addObj(R.raw.window_obj, 0.033f, true, floatArrayOf(-2.8f, -3.2f, -12f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.desklamp_obj, 0.028f, true, floatArrayOf(0.8f, -6.2f, -8.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
-        addObj(R.raw.clock_obj, 0.045f, true, floatArrayOf(2.0f, -1.0f, -12.0f), true, (Math.PI * 0.5f).toFloat(), floatArrayOf(1.0f, 0.0f, 0.0f))
+        addObj(R.raw.chair_obj, 4.4f, true, floatArrayOf(-2.2f, -8.5f, -9.7f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        addObj(R.raw.table_obj, 3.2f, true, floatArrayOf(-0.85f, -8.5f, -7.5f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        //addObj(R.raw.door_obj, 0.035f, true, floatArrayOf(1.0f, -8.47f, 12.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        addObj(R.raw.doorframe_obj, 0.035f, true, floatArrayOf(1.0f, -8.47f, 12.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        addObj(R.raw.tvcenter_obj, 0.05f, true, floatArrayOf(-5.0f, -4.8f, -2.0f), true, 90.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        addObj(R.raw.shelf_obj, 4.0f, true, floatArrayOf(5.0f, -8.5f, 5.0f), true, 90.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        addObj(R.raw.tv_obj, 0.05f, true, floatArrayOf(6.0f, -2.0f, 6.0f), true, 270.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        //addObj(R.raw.window_obj, 0.033f, true, floatArrayOf(-2.8f, -3.2f, -12f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        //addObj(R.raw.desklamp_obj, 0.028f, true, floatArrayOf(0.8f, -6.2f, -8.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        //addObj(R.raw.clock_obj, 0.045f, true, floatArrayOf(2.0f, -1.0f, -12.0f), true, 90.0f, floatArrayOf(1.0f, 0.0f, 0.0f))
+        addObj(R.raw.lamp_obj, 3.0f, true, floatArrayOf(5.5f, -8.5f, 0.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
+        //addObj(R.raw.smalltable_obj, 3.0f, true, floatArrayOf(-1.2f, -8.5f, 5.0f), true, 90.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        addObj(R.raw.teapot_obj, 0.01f, true, floatArrayOf(-1.2f, -8.47f, 6.0f), true, 90.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        //addObj(R.raw.sofa_obj, 3.6f, true, floatArrayOf(-4.4f, -8.5f, 5.0f), true, 90.0f, floatArrayOf(0.0f, 1.0f, 0.0f))
+        addObj(R.raw.ceilingfan_obj, 0.06f, true, floatArrayOf(-2.0f, 1.5f, 0.0f), false, 0.0f, floatArrayOf(0.0f, 0.0f, 0.0f))
 
         Timer().scheduleAtFixedRate(task, interval.toLong(), interval.toLong())
     }

@@ -9,20 +9,20 @@ import java.util.*
 class Wander : TimerTask() {
 
     private var counter = 0
-    private val angular = (-Math.PI / 10).toFloat()
+    private val angular = 180.0f / 120.0f
 
     override fun run() {
         counter++
-        if (counter < 250) {
+        if (counter < 25000000) {
             setCameraMove(Scene.leftCamera, floatArrayOf(0.0f, 0.0f, 0.0f),
-                    angular, 0.0f, Scene.xAxis, Scene.yAxis)
+                    -angular, 0.0f, Scene.xAxis, Scene.yAxis)
             setCameraMove(Scene.rightCamera, floatArrayOf(0.0f, 0.0f, 0.0f),
-                    angular, 0.0f, Scene.xAxis, Scene.yAxis)
+                    -angular, 0.0f, Scene.xAxis, Scene.yAxis)
             val matrix = Utils.loadIdentity()
             //Matrix.translateM(matrix, 0, 0.0f, 0.0f, 0.0f)
             Matrix.rotateM(matrix, 0, angular, Scene.xAxis[0], Scene.xAxis[1], Scene.xAxis[2])
             Matrix.multiplyMV(Scene.yAxis, 0, matrix, 0, Scene.yAxis, 0)
-        } else if (counter < 500) {
+        } else if (counter < 5000000) {
             setCameraMove(Scene.leftCamera, floatArrayOf(0.0f, 0.0f, 0.0f),
                     0.0f, -angular, Scene.xAxis, Scene.yAxis)
             setCameraMove(Scene.rightCamera, floatArrayOf(0.0f, 0.0f, 0.0f),
